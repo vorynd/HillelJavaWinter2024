@@ -1,4 +1,4 @@
-package homework_02;
+package homework02;
 
 public class ArithmeticMeanAnyNumber {
     public static void main(String[] args) {
