@@ -11,10 +11,14 @@ public class Animal {
     }
 
     public void run(int length) {
-        System.out.println(name + " пробіг " + length + " м");
+        if (length > 0) {
+            System.out.println(name + " пробіг " + length + " м");
+        }
     }
 
     public void swim(int length) {
-        System.out.println(name + " проплив " + length + " м");
+        if (length > 0) {
+            System.out.println(name + " проплив " + length + " м");
+        }
     }
 }

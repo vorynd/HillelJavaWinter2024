@@ -11,12 +11,10 @@ public class Cat extends Animal {
 
     @Override
     public void run(int length) {
-        if (length > 0) {
-            if (length <= 200) {
-                super.run(length);
-            } else {
-                System.out.println("Кіт не може бігти так далеко");
-            }
+        if (length <= 200) {
+            super.run(length);
+        } else {
+            System.out.println("Кіт не може бігти так далеко");
         }
     }
 
