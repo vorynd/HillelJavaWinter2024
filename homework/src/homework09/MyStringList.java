@@ -7,18 +7,21 @@ public class MyStringList {
 
     public boolean add(int index, String value) {
         if (index < indexCounter) {
+            if (indexCounter >= array.length) {
+                expand();
+            }
+            for (int i = indexCounter; i >= indexCounter - index; i--) {
+                array[i] = array[i - 1];
+            }
             array[index] = value;
+            indexCounter++;
             return true;
         } else return false;
     }
 
     public boolean add(String value) {
         if (indexCounter >= array.length) {
-            String[] tmp = new String[(int) (array.length * 1.6)];
-            for (int i = 0; i < array.length; i++) {
-                tmp[i] = array[i];
-            }
-            array = tmp;
+            expand();
         }
         array[indexCounter] = value;
         indexCounter++;
@@ -44,6 +47,14 @@ public class MyStringList {
 
     public String get(int index) {
         return array[index];
+    }
+
+    private void expand() {
+        String[] tmp = new String[(int) (array.length * 1.6)];
+        for (int i = 0; i < array.length; i++) {
+            tmp[i] = array[i];
+        }
+        array = tmp;
     }
 
     public void print() {

@@ -6,22 +6,20 @@ public class Run {
         MyStringList myStringList = new MyStringList();
 
 
-        myStringList.add("0");
-        myStringList.add(0, "3");
-        myStringList.add("0");
-        myStringList.add("0");
-        myStringList.add(9, "999");
-        myStringList.add("0");
-        myStringList.add("0");
-        myStringList.add("0");
-        myStringList.add("0");
+        myStringList.add("1");
+        myStringList.add("2");
+        myStringList.add("3");
+        myStringList.add("4");
+        myStringList.add("5");
+        myStringList.add(2,"1444");
+        myStringList.add(3,"1444");
+        myStringList.add(4,"1444");
+        myStringList.add(5,"1444");
+
         myStringList.print();
-        myStringList.delete(5);
-        myStringList.delete(10);
-        myStringList.delete(11);
+
+
         myStringList.delete("0");
-        myStringList.add("0");
-        myStringList.add("0");
         myStringList.print();
 
         System.out.println(myStringList.get(5));
