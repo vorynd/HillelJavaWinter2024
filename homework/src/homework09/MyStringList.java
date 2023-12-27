@@ -7,7 +7,7 @@ public class MyStringList {
 
     public boolean add(int index, String value) {
         if (index < indexCounter) {
-            if (indexCounter >= array.length) {
+            if (indexCounter >= array.length - 1) {
                 expand();
             }
             for (int i = indexCounter; i >= indexCounter - index; i--) {
@@ -20,7 +20,7 @@ public class MyStringList {
     }
 
     public boolean add(String value) {
-        if (indexCounter >= array.length) {
+        if (indexCounter >= array.length - 1) {
             expand();
         }
         array[indexCounter] = value;
@@ -30,15 +30,27 @@ public class MyStringList {
 
     public boolean delete(int index) {
         if (index < indexCounter) {
-            array[index] = null;
+            for (int i = index; i < indexCounter; i++) {
+                array[i] = array[i + 1];
+            }
+            indexCounter--;
+            if (indexCounter <= array.length * 0.5) {
+                shrink();
+            }
             return true;
         } else return false;
     }
 
     boolean delete(String value) {
         for (int i = 0; i < array.length; i++) {
-            if (array[i].equals(value)) {
-                array[i] = null;
+            if (array[i] != null && array[i].equals(value)) {
+                for (int j = i; j < indexCounter; j++) {
+                    array[j] = array[j + 1];
+                }
+                indexCounter--;
+                if (indexCounter <= array.length * 0.5) {
+                    shrink();
+                }
                 return true;
             }
         }
@@ -52,6 +64,14 @@ public class MyStringList {
     private void expand() {
         String[] tmp = new String[(int) (array.length * 1.6)];
         for (int i = 0; i < array.length; i++) {
+            tmp[i] = array[i];
+        }
+        array = tmp;
+    }
+
+    private void shrink() {
+        String[] tmp = new String[(int) (array.length * 0.7)];
+        for (int i = 0; i <= indexCounter; i++) {
             tmp[i] = array[i];
         }
         array = tmp;
