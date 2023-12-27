@@ -34,7 +34,7 @@ public class MyStringList {
                 array[i] = array[i + 1];
             }
             indexCounter--;
-            if (indexCounter <= array.length * 0.5) {
+            if (indexCounter <= array.length * 0.5 && array.length > 10) {
                 shrink();
             }
             return true;
@@ -48,7 +48,7 @@ public class MyStringList {
                     array[j] = array[j + 1];
                 }
                 indexCounter--;
-                if (indexCounter <= array.length * 0.5) {
+                if (indexCounter <= array.length * 0.5 && array.length > 10) {
                     shrink();
                 }
                 return true;

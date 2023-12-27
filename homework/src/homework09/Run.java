@@ -32,5 +32,10 @@ public class Run {
 
 
         System.out.println(myStringList.get(5));
+        myStringList.delete(0);
+        myStringList.delete(0);
+        myStringList.delete(0);
+        myStringList.delete(0);
+        myStringList.print();
     }
 }
