@@ -9,5 +9,6 @@ public interface SubscriberService {
     void printAllSubsriberByInterCityCalls(Subscriber[] subscribers);
 
     void printTotalInternetTrafficByCity(Subscriber[] subscribers, String city);
+
     void printSubsribersWithNegativeBalanceCount(Subscriber[] subscribers);
 }
