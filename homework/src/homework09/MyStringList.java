@@ -51,7 +51,9 @@ public class MyStringList {
     }
 
     public String get(int index) {
-        return array[index];
+        if (index < indexCounter) {
+            return array[index];
+        } else throw new IndexOutOfBoundsException("index " + index + " out of bounds for length " + indexCounter);
     }
 
     private void expand() {
