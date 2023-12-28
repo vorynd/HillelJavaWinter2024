@@ -41,10 +41,10 @@ public class MyStringList {
         } else return false;
     }
 
-    boolean delete(String value) {
+    public boolean delete(String value) {
         for (int i = 0; i < array.length; i++) {
             if (array[i] != null && array[i].equals(value)) {
-               return delete(i);
+                return delete(i);
             }
         }
         return false;
