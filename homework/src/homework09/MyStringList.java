@@ -44,14 +44,7 @@ public class MyStringList {
     boolean delete(String value) {
         for (int i = 0; i < array.length; i++) {
             if (array[i] != null && array[i].equals(value)) {
-                for (int j = i; j < indexCounter; j++) {
-                    array[j] = array[j + 1];
-                }
-                indexCounter--;
-                if (indexCounter <= array.length * 0.5 && array.length > 10) {
-                    shrink();
-                }
-                return true;
+               return delete(i);
             }
         }
         return false;

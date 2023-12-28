@@ -35,5 +35,6 @@ public class Run {
         myStringList.delete(0);
         myStringList.delete(0);
         myStringList.print();
+
     }
 }
