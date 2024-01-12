@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Phonebook {
-    private ArrayList<Entry> entries = new ArrayList<>();
+    private List<Entry> entries = new ArrayList<>();
 
 
     public void add(String name, String phoneNum) {
@@ -19,7 +19,7 @@ public class Phonebook {
                 }
             }
         }
-        return new Entry();
+        return null;
     }
 
     public List<Entry> findAll(String name) {
