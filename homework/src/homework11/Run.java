@@ -30,5 +30,7 @@ public class Run {
         homework.calcOccurance(stringList);
         System.out.println(homework.findOccurance(stringList));
 
+
+
     }
 }
