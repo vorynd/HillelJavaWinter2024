@@ -4,7 +4,7 @@ import java.nio.file.InvalidPathException;
 import java.util.*;
 
 public class FileNavigator {
-    private HashMap<String, ArrayList<FileData>> map = new HashMap<>();
+    private Map<String, List<FileData>> map = new HashMap<>();
 
     public void add(FileData file, String path) throws InvalidPathException {
         if (!Objects.equals(path, file.getPath())) {
@@ -19,7 +19,7 @@ public class FileNavigator {
     }
 
     public List<FileData> filterBySize(int size) {
-        ArrayList<FileData> result = new ArrayList<>();
+        List<FileData> result = new ArrayList<>();
         map.forEach((key, value) -> value.forEach(file -> {
             if (file.getSize() <= size) {
                 result.add(file);
@@ -33,7 +33,7 @@ public class FileNavigator {
     }
 
     public List<FileData> sortBySize() {
-        ArrayList<FileData> result = new ArrayList<>();
+        List<FileData> result = new ArrayList<>();
         map.forEach((key, value) -> result.addAll(value));
         result.sort(Comparator.comparingInt(FileData::getSize));
         return result;
