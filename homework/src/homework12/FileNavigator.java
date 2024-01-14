@@ -1,14 +1,13 @@
 package homework12;
 
-import java.nio.file.InvalidPathException;
 import java.util.*;
 
 public class FileNavigator {
     private Map<String, List<FileData>> map = new HashMap<>();
 
-    public void add(FileData file, String path) throws InvalidPathException {
+    public void add(FileData file, String path) throws PathNoMatchExeption {
         if (!Objects.equals(path, file.getPath())) {
-            throw new InvalidPathException(file.toString(), path + " path do not match");
+            throw new PathNoMatchExeption(file, path);
         }
         map.computeIfAbsent(path, key -> new ArrayList<>());
         map.get(path).add(file);
