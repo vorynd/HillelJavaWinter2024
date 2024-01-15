@@ -26,6 +26,7 @@ public class Run {
         fileNavigator.showAll();
         System.out.println();
         System.out.println(fileNavigator.sortBySize());
+        System.out.println();
 
         try {
             fileNavigator.add(new FileData("test5", 80, "C:\\Program Files"), "C:\\Users");
