@@ -2,6 +2,7 @@ package homework20;
 
 import java.io.File;
 import java.io.FileOutputStream;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
@@ -29,19 +30,19 @@ public class FileLogger {
         if (!file.exists()) {
             file.createNewFile();
         }
-        String str = String.format(config.getFormat(), convert(new Date(System.currentTimeMillis())), level, message);
+        String str = String.format(config.getFormat(), getCurrentFormattedTime(), level, message);
         if (file.length() >= config.getMaxFileSize()) {
             throw new FileMaxSizeReachedException("Max file size reached: " + config.getMaxFileSize() + ". Current size: " + file.length() + ". File on path " + file.getPath());
         }
-        OutputStream outputStream = new FileOutputStream(file, true);
-
-        outputStream.write(str.getBytes());
-        outputStream.close();
+        try (OutputStream outputStream = new FileOutputStream(file, true)) {
+            outputStream.write(str.getBytes());
+        }
         System.out.print(str);
     }
-    public static String convert(Date date){
+
+    public static String getCurrentFormattedTime() {
         String pattern = "yyyy-MM-dd hh:mm:sss";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-        return simpleDateFormat.format(date);
+        return simpleDateFormat.format(new Date(System.currentTimeMillis()));
     }
 }
