@@ -8,12 +8,17 @@ public class Run {
 
 
         String format = "[%s] [%s] Message: [%s] \n";
-        String path = "C:\\Users\\vorynd\\IdeaProjects\\HillelJavaWinter2024\\homework20\\src\\main\\java\\log.txt";
-        FileLogger logger = new FileLogger(new FileLoggerConfiguration(path, LoggingLevel.DEBUG, 20048, format));
-
+        String path = "C:\\Users\\vorynd\\IdeaProjects\\HillelJavaWinter2024\\homework20\\src\\main\\java\\";
+        FileLogger logger = new FileLogger(new FileLoggerConfiguration(path, LoggingLevel.DEBUG, 2048, format));
         for (int i = 0; i < 150; i++) {
-            logger.debug("message #" + i);
+            try {
+                logger.debug("message #" + i);
+
+            } catch (FileMaxSizeReachedException exception) {
+                System.out.println(exception.getMessage());
+            }
         }
+
     }
 
 
