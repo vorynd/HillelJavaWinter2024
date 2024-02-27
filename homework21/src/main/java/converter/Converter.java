@@ -40,12 +40,12 @@ public class Converter {
         yamlList.forEach(this::convertYamlToJson);
     }
 
-    private void convertJsonToYaml(String file) {
+    private void convertJsonToYaml(String filePath) {
         long startTime = System.currentTimeMillis();
         try {
-            File oldFile = new File(file);
+            File oldFile = new File(filePath);
             File convertedFile = new File(convertedFolder + separator
-                    + file.substring(file.lastIndexOf(separator), file.lastIndexOf(".")) + ".yaml");
+                    + filePath.substring(filePath.lastIndexOf(separator), filePath.lastIndexOf(".")) + ".yaml");
             convertedFile.createNewFile();
 
             ObjectMapper jsonMapper = new ObjectMapper();
@@ -58,12 +58,12 @@ public class Converter {
         }
     }
 
-    private void convertYamlToJson(String file) {
+    private void convertYamlToJson(String filePath) {
         long startTime = System.currentTimeMillis();
         try {
-            File oldFile = new File(file);
+            File oldFile = new File(filePath);
             File convertedFile = new File(convertedFolder + separator
-                    + file.substring(file.lastIndexOf(separator), file.lastIndexOf(".")) + ".json");
+                    + filePath.substring(filePath.lastIndexOf(separator), filePath.lastIndexOf(".")) + ".json");
             convertedFile.createNewFile();
 
             ObjectMapper yamlMapper = new ObjectMapper(new YAMLFactory());
