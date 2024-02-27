@@ -99,7 +99,8 @@ public class Converter {
         if (!log.exists()) {
             log.createNewFile();
         }
-        String str = oldFile.getName() + " -> " + newFile.getName() + "; " + formatTime(milis) + " " + formatFileSize(oldFile) + " -> " + formatFileSize(newFile) + "; \n";
+        String format =  "%s -> %s; %s; %s -> %s; \n";
+        String str = String.format(format, oldFile.getName(),newFile.getName(),formatTime(milis),formatFileSize(oldFile),formatFileSize(newFile));
         try (OutputStream outputStream = new FileOutputStream(log, true)) {
             outputStream.write(str.getBytes());
         }
@@ -118,7 +119,7 @@ public class Converter {
 
     private String formatTime(long milis) {
         double elapsedTimeSeconds = milis / 1000.0;
-        return elapsedTimeSeconds + " seconds;";
+        return elapsedTimeSeconds + " seconds";
     }
 }
 
