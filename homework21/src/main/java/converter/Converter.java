@@ -36,9 +36,7 @@ public class Converter {
                 yamlList.add(str);
             }
         });
-        System.out.println(jsonList);
         jsonList.forEach(this::convertJsonToYaml);
-        System.out.println(yamlList);
         yamlList.forEach(this::convertYamlToJson);
     }
 
