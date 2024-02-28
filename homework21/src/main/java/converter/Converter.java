@@ -24,57 +24,42 @@ public class Converter {
     }
 
     public void run() {
-        List<String> yamlList = new ArrayList<>();
-        List<String> jsonList = new ArrayList<>();
         File converted = new File(convertedFolder.toUri());
         converted.mkdir();
-        getFiles().forEach(str -> {
-            if (".json".equals(getFileExtension(str))) {
-                jsonList.add(str);
+
+        ObjectMapper jsonMapper = new ObjectMapper();
+        ObjectMapper yamlMapper = new ObjectMapper(new YAMLFactory());
+
+        getFiles().forEach(file -> {
+            if (".json".equals(getFileExtension(file))) {
+                processConvertation(file, createConvertedFile(file, ".yaml"), jsonMapper, yamlMapper);
             }
-            if (".yaml".equals(getFileExtension(str))) {
-                yamlList.add(str);
+            if (".yaml".equals(getFileExtension(file))) {
+                processConvertation(file, createConvertedFile(file, ".json"), yamlMapper, jsonMapper);
             }
         });
-        jsonList.forEach(this::convertJsonToYaml);
-        yamlList.forEach(this::convertYamlToJson);
     }
 
-    private void convertJsonToYaml(String filePath) {
+    private File createConvertedFile(File fromFile, String extension) {
+        return new File(convertedFolder + separator
+                + fromFile.getName().substring(0, fromFile.getName().lastIndexOf(".")) + extension);
+    }
+
+    private void processConvertation(File fromFile, File toFile, ObjectMapper fromMapper, ObjectMapper toMapper) {
         long startTime = System.currentTimeMillis();
         try {
-            File oldFile = new File(filePath);
-            File convertedFile = new File(convertedFolder + separator
-                    + filePath.substring(filePath.lastIndexOf(separator), filePath.lastIndexOf(".")) + ".yaml");
-            convertedFile.createNewFile();
 
-            ObjectMapper jsonMapper = new ObjectMapper();
-            Object obj = jsonMapper.readValue(oldFile, Object.class);
-            ObjectMapper yamlMapper = new ObjectMapper(new YAMLFactory());
-            yamlMapper.writeValue(convertedFile, obj);
+            convert(fromFile, toFile, fromMapper, toMapper);
+
             long elapsedTime = System.currentTimeMillis() - startTime;
-            logger.log(oldFile, convertedFile, elapsedTime);
+            logger.log(fromFile, toFile, elapsedTime);
         } catch (IOException ignored) {
         }
     }
 
-    private void convertYamlToJson(String filePath) {
-        long startTime = System.currentTimeMillis();
-        try {
-            File oldFile = new File(filePath);
-            File convertedFile = new File(convertedFolder + separator
-                    + filePath.substring(filePath.lastIndexOf(separator), filePath.lastIndexOf(".")) + ".json");
-            convertedFile.createNewFile();
-
-            ObjectMapper yamlMapper = new ObjectMapper(new YAMLFactory());
-            Object obj = yamlMapper.readValue(oldFile, Object.class);
-            ObjectMapper jsonMapper = new ObjectMapper();
-            jsonMapper.writeValue(convertedFile, obj);
-            long elapsedTime = System.currentTimeMillis() - startTime;
-            logger.log(oldFile, convertedFile, elapsedTime);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void convert(File fromFile, File toFile, ObjectMapper fromMapper, ObjectMapper toMapper) throws IOException {
+        Object obj = fromMapper.readValue(fromFile, Object.class);
+        toMapper.writeValue(toFile, obj);
     }
 
     private Path getDir(String[] args) {
@@ -83,13 +68,14 @@ public class Converter {
         } else return Path.of(args[0]);
     }
 
-    private String getFileExtension(String str) {
+    private String getFileExtension(File file) {
+        String str = file.getAbsolutePath();
         int index = str.lastIndexOf(".");
         return index == -1 ? null : str.substring(index);
     }
 
-    private List<String> getFiles() {
-        return Arrays.stream(Objects.requireNonNull(new File(path.toUri()).listFiles())).map(File::toString).toList();
+    private List<File> getFiles() {
+        return Arrays.stream(Objects.requireNonNull(new File(path.toUri()).listFiles())).toList();
     }
 }
 
